@@ -1,0 +1,46 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<title>天气查看</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<script type="text/javascript">
+function sousuo(){
+    var cs = document.getElementsByName('tianqi')[0].value;
+    var url = 'http://api.map.baidu.com/telematics/v3/weather?location='+cs+'&output=json&ak=gTGVhwZA2gR6OFAPap7GBw6KtaoSWhQi&callback=tianqi';
+    //创建一个script标签
+    var scr = document.createElement('script');
+    scr.setAttribute('type','text/javascript');
+    scr.setAttribute('src',url);
+    //把script标签添加到head中，这样一触发这个函数就会加载这个链接
+    document.getElementsByTagName('head')[0].appendChild(scr);
+}
+function tianqi(res){
+    document.getElementById('test1').innerHTML = '搜索时间:'+res.date;
+    document.getElementById('test2').innerHTML = '搜索城市:'+res.results[0]['currentCity'];
+    document.getElementById('test3').innerHTML = '实时更新:'+res.results[0]['weather_data'][0]['date'];
+    document.getElementById('test4').innerHTML = '天气:'+res.results[0]['weather_data'][0]['weather'];
+    document.getElementById('test5').innerHTML = '风向:'+res.results[0]['weather_data'][0]['wind'];
+    document.getElementById('test6').innerHTML = '一天温度:'+res.results[0]['weather_data'][0]['temperature'];
+}
+</script>
+
+<style type="text/css">
+</style>
+</head>
+    <body>
+    <h2 style="text-align:center">欢迎使用天气搜索(json和百度天气接口学习)</h2><br />
+    <div style="text-align:center">
+        输入城市名字:<input type="text" name="tianqi"/><br />
+        <input type="submit" value="搜索" onclick="sousuo();"/><br />
+    </div>
+    <div style="text-align:center" id="test1"></div>
+    <div style="text-align:center" id="test2"></div>
+    <div style="text-align:center" id="test3"></div>
+    <div style="text-align:center" id="test4"></div>
+    <div style="text-align:center" id="test5"></div>
+    <div style="text-align:center" id="test6"></div>
+    </body>
+</html>
